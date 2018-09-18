@@ -1,9 +1,10 @@
 #Algorithm to win is n n e e s s
-import os, sys
+#https://github.com/liljag/tileTraveller
+#import os, sys
 x, y = 1, 1
 #print("You can travel: (N)orth.")
 N = True
-S = True
+S = False
 E = False
 W = False
 win = False
@@ -30,19 +31,27 @@ while(win == False):
 	elif(W==True):
 		string=string+ '(W)est'
 	
+	string = string + "."
 	print("You can travel: "+string)
-	d = raw_input("Direction: ")
-	if(d.lower() == 'n' and N==True):
-		y+=1
-	elif(d.lower() == 's' and S==True):
-		y-=1
-	elif(d.lower() == 'e' and E==True):
-		x+=1
-	elif(d.lower() == 'w' and W==True):
-		x-=1
-	else:
-		print("Not a valid direction!")
-	if(y == 1 or (y==2 and x==1)):
+	
+	valid = True
+	while(valid):
+		d = input("Direction: ")
+		if(d.lower() == 'n' and N==True):
+			y+=1
+			valid = False
+		elif(d.lower() == 's' and S==True):
+			y-=1
+			valid = False
+		elif(d.lower() == 'e' and E==True):
+			x+=1
+			valid = False
+		elif(d.lower() == 'w' and W==True):
+			x-=1
+			valid = False
+		else:
+			print("Not a valid direction!")
+	if(y == 1 or (y==2 and (x==1 or x==3))):
 		N = True
 	else:
 		N = False
@@ -50,7 +59,7 @@ while(win == False):
 		S = True
 	else:
 		S = False
-	if(x==1 or (x==2 and y==3) or (x==1 and y!=1)):
+	if((x==1 and (y==2 or y==3)) or (x==2 and y==3) or (x==1 and y!=1)):
 		E = True
 	else:
 		E = False
